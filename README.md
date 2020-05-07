@@ -1,6 +1,9 @@
 eCoinCore integration/staging tree
 =====================================
 
+# This software is not what you are looking for.  Please see https://github.com/Canada-eCoin/Canada-eCoin-qt if you are wanting a Canada eCoin wallet.
+
+
 What is eCoinCore?
 ----------------
 
