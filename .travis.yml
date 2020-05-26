@@ -77,7 +77,7 @@ script:
     - mkdir build && cd build
     - ../configure --cache-file=config.cache $BITCOIN_CONFIG_ALL $BITCOIN_CONFIG
     - make distdir VERSION=$HOST
-    - cd canada-ecoin-$HOST
+    - cd canadaecoin-$HOST
     - ./configure --cache-file=../config.cache $BITCOIN_CONFIG_ALL $BITCOIN_CONFIG
     - make $MAKEJOBS $GOAL || ( echo "Build failure. Verbose build follows." && make $GOAL V=1 ; false )
     - export LD_LIBRARY_PATH=$TRAVIS_BUILD_DIR/depends/$HOST/lib
