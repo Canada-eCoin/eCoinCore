@@ -8,7 +8,7 @@ cache:
   - depends/sdk-sources
   - $HOME/.ccache
 stages:
-  - lint
+#  - lint
   - test
 env:
   global:
@@ -156,7 +156,7 @@ jobs:
       install:
         - travis_retry pip install flake8==3.5.0
       before_script:
-        - git fetch --unshallow
+#        - git fetch --unshallow
       script:
         - if [ "$TRAVIS_EVENT_TYPE" = "pull_request" ]; then test/lint/commit-script-check.sh $TRAVIS_COMMIT_RANGE; fi
         - test/lint/git-subtree-check.sh src/crypto/ctaes
