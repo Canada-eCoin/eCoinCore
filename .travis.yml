@@ -40,7 +40,7 @@ install:
     - if [ -n "$DPKG_ADD_ARCH" ]; then DOCKER_EXEC dpkg --add-architecture "$DPKG_ADD_ARCH" ; fi
     - travis_retry DOCKER_EXEC apt-get update
     - travis_retry DOCKER_EXEC apt-get install --no-install-recommends --no-upgrade -qq $PACKAGES $DOCKER_PACKAGES
-    - if [ "$CANADAECOIN_SCRYPT" = 1 ]; then travis_retry DOCKER_EXEC pip3 install CANADAECOIN_SCRYPT --allow-external CANADAECOIN_SCRYPT; fi
+    - if [ "$CANADAECOIN_SCRYPT" = 1 ]; then travis_retry DOCKER_EXEC pip3 install litecoin_scrypt --allow-external litecoin_scrypt; fi
 before_script:
     - DOCKER_EXEC echo \> \$HOME/.canadaecoin  # Make sure default datadir does not exist and is never read by creating a dummy file
     - mkdir -p depends/SDKs depends/sdk-sources
