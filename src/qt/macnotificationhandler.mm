@@ -13,7 +13,7 @@
 - (NSString *)__bundleIdentifier
 {
     if (self == [NSBundle mainBundle]) {
-        return @"org.canadaecoin.Canada eCoin-Qt";
+        return @"org.canadaecoin.Canada-eCoin-Qt.app";
     } else {
         return [self __bundleIdentifier];
     }
