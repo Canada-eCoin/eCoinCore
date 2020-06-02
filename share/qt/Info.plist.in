@@ -29,16 +29,16 @@
   <string>????</string>
 
   <key>CFBundleExecutable</key>
-  <string>Canada eCoin-Qt</string>
+  <string>Canada-eCoin-Qt.app</string>
   
   <key>CFBundleName</key>
-  <string>Canada eCoin-Qt</string>
+  <string>Canada-eCoin-Qt.app</string>
 
   <key>LSHasLocalizedDisplayName</key>
   <true/>
 
   <key>CFBundleIdentifier</key>
-  <string>org.canadaecoin.Canada eCoin-Qt</string>
+  <string>org.canadaecoin.Canada-eCoin-Qt.app</string>
 
   <key>CFBundleURLTypes</key>
   <array>
