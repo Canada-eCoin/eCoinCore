@@ -60,13 +60,13 @@ XPStyle on
 BrandingText " "
 ShowInstDetails show
 VIProductVersion ${VERSION}.@CLIENT_VERSION_BUILD@
-VersionKey ProductName "@PACKAGE_NAME@"
-VersionKey ProductVersion "${VERSION}"
-VersionKey CompanyName "${COMPANY}"
-VersionKey CompanyWebsite "${URL}"
-VersionKey FileVersion "${VERSION}"
-VersionKey FileDescription ""
-VersionKey LegalCopyright ""
+VIAddVersionKey ProductName "@PACKAGE_NAME@"
+VIAddVersionKey ProductVersion "${VERSION}"
+VIAddVersionKey CompanyName "${COMPANY}"
+VIAddVersionKey CompanyWebsite "${URL}"
+VIAddVersionKey FileVersion "${VERSION}"
+VIAddVersionKey FileDescription ""
+VIAddVersionKey LegalCopyright ""
 InstallDirRegKey HKCU "${REGKEY}" Path
 ShowUninstDetails show
 

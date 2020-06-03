@@ -46,7 +46,7 @@
       <key>CFBundleTypeRole</key>
       <string>Editor</string>
       <key>CFBundleURLName</key>
-      <string>org.canadaecoin.Canada eCoinPayment</string>
+      <string>org.canadaecoin.Canada-eCoin-Payment</string>
       <key>CFBundleURLSchemes</key>
       <array>
         <string>canadaecoin</string>
