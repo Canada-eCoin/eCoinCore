@@ -529,8 +529,8 @@ std::string HelpMessage(HelpMessageMode mode)
 
 std::string LicenseInfo()
 {
-    const std::string URL_SOURCE_CODE = "<https://github.com/canadaecoin/canadaecoin>";
-    const std::string URL_WEBSITE = "<https://canadaecoin.org>";
+    const std::string URL_SOURCE_CODE = "<https://github.com/canada-ecoin/ecoincore>";
+    const std::string URL_WEBSITE = "<https://canadaecoin.ca>";
 
     return CopyrightHolders(strprintf(_("Copyright (C) %i-%i"), 2014, COPYRIGHT_YEAR) + " ") + "\n" +
            "\n" +

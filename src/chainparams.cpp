@@ -3,6 +3,7 @@
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
+#include <chain.h>
 #include <chainparams.h>
 #include <consensus/merkle.h>
 
@@ -84,8 +85,9 @@ public:
         consensus.BIP66Height = 0;
         consensus.BlockVer5Height = 1;
         consensus.powLimit = uint256S("001fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"); // ~uint25(0) >> 23
-        consensus.nPowTargetTimespan = 1 * 24 * 60 * 60;
-        consensus.nPowTargetSpacing = 1 * 24;
+        consensus.nPowTargetTimespan = 1 * 24 * 60 * 60; // 1 day
+        // consensus.nPowTargetSpacing = 1 * 180; // 3 minutes
+        consensus.nPowTargetSpacing = getTargetSpacing();
         consensus.fPowAllowMinDifficultyBlocks = false;
         consensus.fPowNoRetargeting = false;
         consensus.nRuleChangeActivationThreshold = 8100; // // 75% of nMinerConfirmationWindow
@@ -123,7 +125,7 @@ public:
         pchMessageStart[1] = 0xc4;
         pchMessageStart[2] = 0xb9;
         pchMessageStart[3] = 0xde;
-        nDefaultPort = 5223;
+        nDefaultPort = 34331;
         nPruneAfterHeight = 100000;
 
         genesis = CreateGenesisBlock(1579706696, 1312170, 0x1e0ffff0, 1, 0 * COIN);
@@ -214,7 +216,7 @@ public:
         pchMessageStart[1] = 0xc1;
         pchMessageStart[2] = 0xb7;
         pchMessageStart[3] = 0xdc;
-        nDefaultPort = 25223;
+        nDefaultPort = 41331;
         nPruneAfterHeight = 1000;
 
         genesis = CreateGenesisBlock(1579705777, 306973, 0x1efffff0, 1, 0 * COIN);
@@ -302,7 +304,7 @@ public:
         pchMessageStart[1] = 0xc3;
         pchMessageStart[2] = 0xb5;
         pchMessageStart[3] = 0xdb;
-        nDefaultPort = 15224;
+        nDefaultPort = 51331;
         nPruneAfterHeight = 1000;
 
         genesis = CreateGenesisBlock(1405166035, 0, 0x207fffff, 1, 0 * COIN);
@@ -366,4 +368,20 @@ void SelectParams(const std::string& network)
 void UpdateVersionBitsParameters(Consensus::DeploymentPos d, int64_t nStartTime, int64_t nTimeout)
 {
     globalChainParams->UpdateVersionBitsParameters(d, nStartTime, nTimeout);
+}
+
+int getTargetSpacing() {
+    extern CBlockIndex* pindex;
+
+    if( pindex->nHeight >= 500 ) { return 180; } /// Normal 3 minute block spacing
+    else { return 30; } // Fast swap blocks
+}
+
+int getTargetTimespan() {
+    extern CBlockIndex* pindex;
+
+    if( pindex->nHeight >= 2000 ) { return 1*24*60*60; } // Daily retargeting
+    else if( pindex->nHeight >= 1500 ) { return 1*60*60; } // Retarget every hour
+    else if( pindex->nHeight >= 1000 ) { return 1*60*30; } // Regarget every 30 minutes
+    else if( pindex->nHeight >= 500 ) { return 180; } // Retarget every block
 }
