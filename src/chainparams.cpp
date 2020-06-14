@@ -379,6 +379,7 @@ int getTargetSpacing() {
         else { return 30; } // Fast swap blocks
     } else {
         LogPrintStr("----> Error defining pIndex, nHeight (getTargetSpacing)");
+        return 30;
     }
 
 }
@@ -391,7 +392,9 @@ int getTargetTimespan() {
         else if( pindex->nHeight >= 1500 ) { return 1*60*60; } // Retarget every hour
         else if( pindex->nHeight >= 1000 ) { return 1*60*30; } // Regarget every 30 minutes
         else if( pindex->nHeight >= 500 ) { return 180; } // Retarget every block
+        else { return 1*24*60*60; } // Essentially, don't retarget in the first 500 blocks
     } else {
         LogPrintStr("----> Error defining pIndex, nHeight (getTargetTimespan)");
+        return 1*24*60*60;
     }
 }
