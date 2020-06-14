@@ -377,7 +377,10 @@ int getTargetSpacing() {
     if(pindex) {
         if( pindex->nHeight >= 500 ) { return 180; } /// Normal 3 minute block spacing
         else { return 30; } // Fast swap blocks
+    } else {
+        LogPrintStr("----> Error defining pIndex, nHeight (getTargetSpacing)");
     }
+
 }
 
 int getTargetTimespan() {
@@ -388,5 +391,7 @@ int getTargetTimespan() {
         else if( pindex->nHeight >= 1500 ) { return 1*60*60; } // Retarget every hour
         else if( pindex->nHeight >= 1000 ) { return 1*60*30; } // Regarget every 30 minutes
         else if( pindex->nHeight >= 500 ) { return 180; } // Retarget every block
+    } else {
+        LogPrintStr("----> Error defining pIndex, nHeight (getTargetTimespan)");
     }
 }
