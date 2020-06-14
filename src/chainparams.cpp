@@ -372,17 +372,21 @@ void UpdateVersionBitsParameters(Consensus::DeploymentPos d, int64_t nStartTime,
 }
 
 int getTargetSpacing() {
-    extern CBlockIndex* pindex;
-
-    if( pindex->nHeight >= 500 ) { return 180; } /// Normal 3 minute block spacing
-    else { return 30; } // Fast swap blocks
+    const CBlockIndex* pindex;
+    
+    if(pindex) {
+        if( pindex->nHeight >= 500 ) { return 180; } /// Normal 3 minute block spacing
+        else { return 30; } // Fast swap blocks
+    }
 }
 
 int getTargetTimespan() {
-    extern CBlockIndex* pindex;
+    const CBlockIndex* pindex;
 
-    if( pindex->nHeight >= 2000 ) { return 1*24*60*60; } // Daily retargeting
-    else if( pindex->nHeight >= 1500 ) { return 1*60*60; } // Retarget every hour
-    else if( pindex->nHeight >= 1000 ) { return 1*60*30; } // Regarget every 30 minutes
-    else if( pindex->nHeight >= 500 ) { return 180; } // Retarget every block
+    if(pindex) {
+        if( pindex->nHeight >= 2000 ) { return 1*24*60*60; } // Daily retargeting
+        else if( pindex->nHeight >= 1500 ) { return 1*60*60; } // Retarget every hour
+        else if( pindex->nHeight >= 1000 ) { return 1*60*30; } // Regarget every 30 minutes
+        else if( pindex->nHeight >= 500 ) { return 180; } // Retarget every block
+    }
 }
