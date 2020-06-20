@@ -3,7 +3,6 @@
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#include <chain.h>
 #include <chainparams.h>
 #include <consensus/merkle.h>
 
@@ -86,9 +85,8 @@ public:
         consensus.BlockVer5Height = 1;
         consensus.powLimit = uint256S("001fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"); // ~uint25(0) >> 23
         // consensus.nPowTargetTimespan = 1 * 24 * 60 * 60; // 1 day
-        // consensus.nPowTargetSpacing = 1 * 180; // 3 minutes
-        consensus.nPowTargetTimespan = getTargetTimespan();
-        consensus.nPowTargetSpacing = getTargetSpacing();
+        consensus.nPowTargetTimespan = 1 * 180; // 3 minutes
+        consensus.nPowTargetSpacing = 1 * 180; // 3 minutes
         consensus.fPowAllowMinDifficultyBlocks = false;
         consensus.fPowNoRetargeting = false;
         consensus.nRuleChangeActivationThreshold = 8100; // // 75% of nMinerConfirmationWindow
@@ -369,32 +367,4 @@ void SelectParams(const std::string& network)
 void UpdateVersionBitsParameters(Consensus::DeploymentPos d, int64_t nStartTime, int64_t nTimeout)
 {
     globalChainParams->UpdateVersionBitsParameters(d, nStartTime, nTimeout);
-}
-
-int getTargetSpacing() {
-    const CBlockIndex* pindex;
-    
-    if(pindex) {
-        if( pindex->nHeight >= 500 ) { return 180; } /// Normal 3 minute block spacing
-        else { return 30; } // Fast swap blocks
-    } else {
-        LogPrintStr("----> Error defining pIndex, nHeight (getTargetSpacing)");
-        return 30;
-    }
-
-}
-
-int getTargetTimespan() {
-    const CBlockIndex* pindex;
-
-    if(pindex) {
-        if( pindex->nHeight >= 2000 ) { return 1*24*60*60; } // Daily retargeting
-        else if( pindex->nHeight >= 1500 ) { return 1*60*60; } // Retarget every hour
-        else if( pindex->nHeight >= 1000 ) { return 1*60*30; } // Regarget every 30 minutes
-        else if( pindex->nHeight >= 500 ) { return 180; } // Retarget every block
-        else { return 1*24*60*60; } // Essentially, don't retarget in the first 500 blocks
-    } else {
-        LogPrintStr("----> Error defining pIndex, nHeight (getTargetTimespan)");
-        return 1*24*60*60;
-    }
 }

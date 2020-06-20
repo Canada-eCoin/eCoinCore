@@ -17,10 +17,17 @@ unsigned int CalculateNextWorkRequired_V1(const CBlockIndex* pindexLast, int64_t
 
     // Limit adjustment step
     int64_t nActualTimespan = pindexLast->GetBlockTime() - nFirstBlockTime;
-    if (nActualTimespan < params.nPowTargetTimespan/4)
-        nActualTimespan = params.nPowTargetTimespan/4;
-    if (nActualTimespan > params.nPowTargetTimespan*4)
-        nActualTimespan = params.nPowTargetTimespan*4;
+    
+    //if (nActualTimespan < params.nPowTargetTimespan/4)
+    //    nActualTimespan = params.nPowTargetTimespan/4;
+    //if (nActualTimespan > params.nPowTargetTimespan*4)
+    //    nActualTimespan = params.nPowTargetTimespan*4;
+
+    // This will only run in the first 500 blocks
+    if (nActualTimespan <  30 / 4)
+        nActualTimespan = 30 / 4;
+    if (nActualTimespan > 30 *4)
+        nActualTimespan = 30 *4;    
 
     // Retarget
     arith_uint256 bnNew;
@@ -104,6 +111,9 @@ unsigned int static AntiGravityWave(int64_t version, const CBlockIndex* pindexLa
     } else if (version == 2) {
         PastBlocksMin = 72;
         PastBlocksMax = 72;
+    } else if (version == 3) {
+        PastBlocksMin = 144;
+        PastBlocksMax = 144;
     }
 
     int64_t CountBlocks = 0;
@@ -137,15 +147,23 @@ unsigned int static AntiGravityWave(int64_t version, const CBlockIndex* pindexLa
 
     arith_uint256 bnNew(PastDifficultyAverage);
 
-    if (version == 2)
+    if (version == 3)
         --CountBlocks;
 
-    int64_t nTargetTimespan = CountBlocks * params.nPowTargetSpacing;
+    int64_t nTargetTimespan;
+    if( BlockLastSolved->nHeight + 1 < 500 ) {
+        nTargetTimespan = CountBlocks * 30; // 30 sec target time
+    } else {
+        nTargetTimespan = CountBlocks * params.nPowTargetSpacing;
+    }
 
-    int64_t div = 3;
-    if (version == 1)
-        div = 3;
+    int64_t div = 4;
+
+    if (version == 0 || version == 1)
+        div = 4;
     else if (version == 2)
+        div = 3;
+    else if (version == 3)
         div = 2;
 
     if (nActualTimespan < nTargetTimespan/div)
@@ -171,10 +189,14 @@ unsigned int GetNextWorkRequired(const CBlockIndex* pindexLast, const CBlockHead
     if (params.fPowNoRetargeting)
         return pindexLast->nBits;
 
-    if (pindexLast->nHeight+1 >= 451000 || (params.fPowAllowMinDifficultyBlocks && pindexLast->nHeight+1 >= 300000)) {
+    if (pindexLast->nHeight+1 >= 2000 || (params.fPowAllowMinDifficultyBlocks && pindexLast->nHeight+1 >= 300000)) {
+        return AntiGravityWave(3, pindexLast, pblock, params);
+    } else if (pindexLast->nHeight+1 >= 1500) {
         return AntiGravityWave(2, pindexLast, pblock, params);
-    } else if (pindexLast->nHeight+1 >= 3600) {
+    } else if (pindexLast->nHeight+1 >= 1000) {
         return AntiGravityWave(1, pindexLast, pblock, params);
+    } else if (pindexLast->nHeight+1 >= 500) {
+        return AntiGravityWave(0, pindexLast, pblock, params);
     } else {
         return GetNextWorkRequired_V1(pindexLast, pblock, params);
     }
