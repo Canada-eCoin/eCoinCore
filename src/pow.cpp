@@ -195,7 +195,7 @@ unsigned int GetNextWorkRequired(const CBlockIndex* pindexLast, const CBlockHead
         return AntiGravityWave(2, pindexLast, pblock, params);
     } else if (pindexLast->nHeight+1 >= 1000) {
         return AntiGravityWave(1, pindexLast, pblock, params);
-    } else if (pindexLast->nHeight+1 >= 500) {
+    } else if (pindexLast->nHeight+1 >= 2) {
         return AntiGravityWave(0, pindexLast, pblock, params);
     } else {
         return GetNextWorkRequired_V1(pindexLast, pblock, params);
