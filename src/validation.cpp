@@ -1162,33 +1162,41 @@ CAmount GetBlockSubsidy(int nHeight, const Consensus::Params& consensusParams)
 
     // different zero block period for testnet and mainnet
     // mainnet not fixed until final release
-    int zeroRewardHeight = consensusParams.fPowAllowMinDifficultyBlocks ? 2001 : 10001;
+    // int zeroRewardHeight = consensusParams.fPowAllowMinDifficultyBlocks ? 2001 : 10001;
 
-    int rampHeight = 43200 + zeroRewardHeight; // 4 periods of 10800
+    int zeroRewardHeight = 499; // First 200 blocks are for swapping to Season 2
 
     if (nHeight == 0) {
         // no reward for genesis block
         nSubsidy = 0;
     } else if (nHeight == 1) {
         // first distribution
-        nSubsidy = 99855899 * COIN;
+        nSubsidy = 24963977 * COIN;
+    } else if (nHeight == 2) {
+        nSubsidy = 24963974 * COIN;
+    } else if (nHeight == 3) {
+        nSubsidy = 24963974 * COIN;
+    } else if (nHeight == 4) {
+        nSubsidy = 24963974 * COIN;
     } else if (nHeight <= zeroRewardHeight) {
-        // no block reward to allow difficulty to scale up and prevent instamining
         nSubsidy = 0;
-    } else if (nHeight <= (zeroRewardHeight + 10800)) {
-        // first 10800 block after zero reward period is 10 coins per block
-        nSubsidy = 10 * COIN;
-    } else if (nHeight <= rampHeight) {
-        // every 10800 blocks reduce nSubsidy from 8 to 6
-        nSubsidy = (8 - int((nHeight-zeroRewardHeight-1) / 10800)) * COIN;
-    } else if (nHeight <= 1971000) {
-        nSubsidy = 5 * COIN;
-    } else { // (nHeight > 1971000)
-        int halvings = nHeight / consensusParams.nSubsidyHalvingInterval;
-        // Force block reward to zero when right shift is undefined.
-        if (halvings <= 64) {
-            nSubsidy = 20 * COIN;
-            nSubsidy >>= halvings;
+    } else if (nHeight > zeroRewardHeight && nHeight < 500000 ) {
+        nSubsidy = 1 * COIN;
+    } else if (nHeight >= 500000 && nHeight < 1000000) {
+        nSubsidy = 2 * COIN;
+    } else if (nHeight >= 1000000 && nHeight < 1500000) {
+        nSubsidy = 3 * COIN;
+    } else if (nHeight >= 1500000 && nHeight < 2000000 ) {
+        nSubsidy = 4 * COIN;
+    } else if (nHeight >= 2000000 && nHeight < 3000000 ) {
+        nSubsidy = 3 * COIN;
+    } else if (nHeight >= 3000000) {
+        int halvings = nHeight / 1000000;
+        if (halvings >= 3) {
+            int shift = halvings - 3;
+
+            nSubsidy = 2 * COIN;
+            nSubsidy >>= shift;
         }
     }
 
