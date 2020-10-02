@@ -1171,7 +1171,7 @@ CAmount GetBlockSubsidy(int nHeight, const Consensus::Params& consensusParams)
         nSubsidy = 0;
     } else if (nHeight == 1) {
         // first distribution
-        nSubsidy = 100000000 * COIN;
+        nSubsidy = 99767266 * COIN;
     } else if (nHeight <= zeroRewardHeight) {
         nSubsidy = 0;
     } else if (nHeight > zeroRewardHeight && nHeight < 500000 ) {
