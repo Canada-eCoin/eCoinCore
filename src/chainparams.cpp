@@ -154,12 +154,13 @@ public:
         checkpointData = {
             {
                 {0, uint256S("0xceac4f4dc5aa01eb7fe5b36410cd7a1cb0f89856c76401a69d1b30fb8bc0e3bf")},
+                {399, uint256S("0xe6bbbf1c943e3daad752c46393645b49ea71714106d4b43c22c7ec9d871c20b8")}
             }
         };
 
         chainTxData = ChainTxData{
-            1601651458,  // * UNIX timestamp of last known number of transactions
-            0,  // * total number of transactions between genesis and that timestamp
+            1601668926,  // * UNIX timestamp of last known number of transactions
+            399,  // * total number of transactions between genesis and that timestamp
                 //   (the tx=... number in the SetBestChain debug.log lines)
             0   // * estimated number of transactions per second after that timestamp
         };
