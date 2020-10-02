@@ -1,16 +1,16 @@
 eCoinCore integration/staging tree
 =====================================
 
-# This software is not what you are looking for.  Please see https://github.com/Canada-eCoin/Canada-eCoin-qt if you are wanting a Canada eCoin wallet.
+# This is the Canada eCoin Volume 2 
 
 
 What is eCoinCore?
 ----------------
 
-eCoinCore is an experimental digital currency that enables instant payments to
-anyone, anywhere in the world. eCoinCore uses peer-to-peer technology to operate
-with no central authority: managing transactions and issuing money are carried
-out collectively by the network. eCoinCore is the name of open source
+eCoinCore is an experimental digital currency client software that enables instant 
+payments to anyone, anywhere in the world. eCoinCore uses peer-to-peer technology 
+to operate with no central authority: managing transactions and issuing money are 
+carried out collectively by the network. eCoinCore is the name of open source
 software which enables the use of this currency.
 
 For more information, as well as an immediately useable, binary version of
