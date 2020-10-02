@@ -1,7 +1,7 @@
 eCoinCore integration/staging tree
 =====================================
 
-# This is the Canada eCoin Volume 2 
+# This is the Canada eCoin Volume 2 desktop wallet client.
 
 
 What is eCoinCore?
