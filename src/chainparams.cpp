@@ -133,8 +133,8 @@ public:
         assert(genesis.hashMerkleRoot == uint256S("0x94cc5850896994d3964bd56de89473936cab4471fa432a4ffe53c470f1e56c5f"));
 
         // Note that of those with the service bits flag, most only support a subset of possible options
-        vSeeds.emplace_back("hard-seeder-01.canadaecoin.ca", true);   // hosted by the Canada eCoin Community Foundation
-        vSeeds.emplace_back("hard-seeder-02.canadaecoin.ca", true);      
+        vSeeds.emplace_back("hard-seeder-01.canadaecoin.ca");   // hosted by the Canada eCoin Community Foundation
+        vSeeds.emplace_back("hard-seeder-02.canadaecoin.ca");      
         
         base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1,28);
         base58Prefixes[SCRIPT_ADDRESS] = std::vector<unsigned char>(1,5);
@@ -226,7 +226,7 @@ public:
         vFixedSeeds.clear();
         vSeeds.clear();
         // nodes with support for servicebits filtering should be at the top
-        vSeeds.emplace_back("testnet-seeder-01.canadaecoin.ca", true);
+        vSeeds.emplace_back("testnet-seeder-01.canadaecoin.ca");
 
         base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1,87);
         base58Prefixes[SCRIPT_ADDRESS] = std::vector<unsigned char>(1,196);
